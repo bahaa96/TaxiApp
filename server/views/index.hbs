@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Index</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            border: 0;
+        }
+        body {
+            background: #2b5876;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #4e4376, #2b5876);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #4e4376, #2b5876); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            color: #fff;
+        }
+        #driverForm {
+            border: 2px solid #ffffff;
+            padding: 100px 250px;
+            margin-top: 50px;
+        }
+        #driverForm input[type='button'] {
+            margin-left: 15px;
+        }
+    </style>
+</head>
+<body>
+<h1 class="display-1 text-center">Driver Test</h1>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-xs-6">
+            <form id="driverForm">
+                    <select class="form-control" id="bookingStatus">
+                        <option value="confirmed">Confirmed</option>
+                    </select>
+                <br/>
+                <input type="button" name="submit" value="Confirm" class="btn btn-danger">
+            </form>
+        </div>
+        <div class="col-xs-6"></div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js" type="text/javascript"></script>
+
+<script>
+    window.onload = () => {
+        const socket = io();
+        socket.on('connect', function(){
+            const driversLcationID = "598da4a1734d1d2227f61862"
+            fetch("/driversLocation/" + driversLcationID, {
+                method: "PUT",
+                body: { socketID : socket.id }
+            }).then(response => {
+                return response.json()
+            }).then(json => console.log(json)).catch(e => e)
+        });
+
+    }
+</script>
+
+</body>
+</html>
+
+
+
+
